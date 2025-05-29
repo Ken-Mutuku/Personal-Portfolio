@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +56,7 @@
 
       <div class="contact-form"> <!-- Right column -->
         <h3>Send Me a Message</h3>
-        <form>
+        <form action="sendmail.php" method='post'>
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
@@ -72,10 +73,31 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required></textarea>
           </div>
-          <button type="submit" class="submit-btn">Send Message</button>
+          <button type="submit" name="submitContact" class="submit-btn">Send Message</button>
         </form>
       </div>
     </div>
   </section>
+      <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js "></script>
+    <script src="mail/contact.js "></script>
+
+    <!-- Template Javascript -->
+   <script src="js/main.js "></script>
+    <!-- Sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        var messageText="<?= $_SESSION['status'] ?? ''; ?>";
+        if(messageText != ''){
+
+        
+        Swal.fire({
+            title: "Thankyou?",
+            text: messageText,
+            icon: "success"
+        });
+        <?php unset($_SESSION['status']); ?>
+    }
+    </script>
 </body>
 </html>
